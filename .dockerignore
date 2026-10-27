@@ -1,0 +1,10 @@
+# Exclude everything, then include only what the image needs. A new top-level
+# file or directory that the app needs must be added here.
+*
+!pyproject.toml
+!uv.lock
+!manage.py
+!app.json
+!config/
+!counter/
+**/__pycache__
