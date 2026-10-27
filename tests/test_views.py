@@ -8,6 +8,11 @@ def test_index_counts_visits(client):
 
 
 @pytest.mark.django_db
+def test_index_shows_host(client):
+    assert "Host: testserver\n" in client.get("/").text
+
+
+@pytest.mark.django_db
 def test_index_shows_secret(client, settings):
     settings.DEMO_SECRET = "hello"
     assert "Secret: hello" in client.get("/").text

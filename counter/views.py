@@ -8,6 +8,7 @@ def index(request):
     Visit.objects.create()
     count = Visit.objects.count()
     return HttpResponse(
+        f"Host: {request.get_host()}\n"
         f"Visit count: {count}\n"
         f"Build: {settings.GIT_COMMIT}\n"
         f"Secret: {settings.DEMO_SECRET or 'not set'}\n",
