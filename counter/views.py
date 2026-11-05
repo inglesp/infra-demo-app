@@ -11,6 +11,7 @@ def index(request):
         f"Host: {request.get_host()}\n"
         f"Visit count: {count}\n"
         f"Build: {settings.GIT_COMMIT}\n"
-        f"Secret: {settings.DEMO_SECRET or 'not set'}\n",
+        f"Secret: {settings.DEMO_SECRET or 'not set'}\n"
+        f"Non-secret: {settings.DEMO_NON_SECRET or 'not set'}\n",
         content_type="text/plain",
     )

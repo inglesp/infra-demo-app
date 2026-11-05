@@ -24,5 +24,17 @@ def test_index_shows_secret_not_set(client, settings):
     assert "Secret: not set" in client.get("/").text
 
 
+@pytest.mark.django_db
+def test_index_shows_non_secret(client, settings):
+    settings.DEMO_NON_SECRET = "hello"
+    assert "Non-secret: hello" in client.get("/").text
+
+
+@pytest.mark.django_db
+def test_index_shows_non_secret_not_set(client, settings):
+    settings.DEMO_NON_SECRET = ""
+    assert "Non-secret: not set" in client.get("/").text
+
+
 def test_unknown_host_is_rejected(client):
     assert client.get("/", HTTP_HOST="evil.example").status_code == 400
