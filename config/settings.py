@@ -53,6 +53,25 @@ DEMO_SECRET = os.environ.get("DEMO_SECRET", "")
 # reaches the app.
 DEMO_NON_SECRET = os.environ.get("DEMO_NON_SECRET", "")
 
+# Send all logs, including Django's, to stderr, where Docker collects them.
+# Django's default config only writes to the console when DEBUG is on, and
+# otherwise emails ADMINS, so without this, errors in views would be lost.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {"format": "[{levelname}] {name}: {message}", "style": "{"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "simple"},
+    },
+    "root": {"handlers": ["console"], "level": "INFO"},
+    "loggers": {
+        # Replaces Django's default handlers for this logger
+        "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
+    },
+}
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 USE_TZ = True

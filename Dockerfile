@@ -41,4 +41,5 @@ USER 10001:10001
 EXPOSE 8000
 
 # exec, so that gunicorn is PID 1 and receives signals from `docker stop`
-CMD ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn config.wsgi --bind 0.0.0.0:8000"]
+# --access-logfile -: log each request to stdout (it's off by default)
+CMD ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn config.wsgi --bind 0.0.0.0:8000 --access-logfile -"]
